@@ -8,7 +8,7 @@ import { Spinner } from "../../utils/Spinner.Util";
 import { useStore } from "../../Store";
 
 const baseUrl =
-  process.env.NODE_ENV === "DEVELOPMENT"
+  process.env.VITE_NODE_ENV === "development"
     ? `http://localhost:3000/api/v1/`
     : "/api/v1/";
 

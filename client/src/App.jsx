@@ -7,6 +7,10 @@ import { Settings } from "./Pages/sidebar/Settings.jsx";
 import { Routes, Route, Navigate } from "react-router";
 import { useStore } from "./Store.jsx";
 import { CompleteAuth } from "./Pages/login/CompleteAuth.jsx";
+import { TermsOfService } from "./Pages/otherPages/TermsOfService.jsx";
+import { PrivacyPolicy } from "./Pages/otherPages/PrivacyPolicy.jsx";
+import { NotFoundPage } from "./Pages/otherPages/NotFoundPage.jsx";
+import { LandingPage } from "./Pages/otherPages/LandingPage.jsx";
 
 const App = () => {
   const { isUserLogin, onRefresh } = useStore((state) => state);
@@ -18,13 +22,6 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route
-          index
-          element={
-            isUserLogin === true ? <Navigate to="/home" /> : <CompleteAuth />
-          }
-        />
-
         {/* protected routes */}
 
         <Route
@@ -39,6 +36,18 @@ const App = () => {
           path="/setting"
           element={isUserLogin === true ? <Settings /> : <Navigate to="/" />}
         />
+
+        {/* public routes */}
+        <Route
+          index
+          element={
+            isUserLogin === true ? <Navigate to="/home" /> : <CompleteAuth />
+          }
+        />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/land" element={<LandingPage />} />
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

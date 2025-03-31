@@ -3,9 +3,11 @@ import { create } from "zustand";
 import { io } from "socket.io-client";
 
 const baseUrl =
-  process.env.NODE_ENV === "DEVELOPMENT"
+  process.env.VITE_NODE_ENV === "development"
     ? `http://localhost:3000/api/v1/`
     : "/api/v1/";
+
+// console.log("baseUrl:", baseUrl);
 
 export const useStore = create((set, get) => ({
   // auth
@@ -29,6 +31,7 @@ export const useStore = create((set, get) => ({
       });
       const data = await res.json();
       const user = data.findUser;
+      console.log("user:", user);
 
       if (!res.ok) {
         toast(data.message, { type: "error" });
@@ -36,7 +39,7 @@ export const useStore = create((set, get) => ({
       }
       if (res.ok) {
         set({ isUserLogin: true });
-        // console.log("data:", user);
+        console.log("data:", user);
         set({ authUser: user });
 
         get().connectSocket();
@@ -110,11 +113,16 @@ export const useStore = create((set, get) => ({
   // online users
 
   connectSocket: () => {
-    const socket = io("http://localhost:3000", {
-      query: {
-        userID: get().authUser?._id,
-      },
-    });
+    const socket = io(
+      process.env.VITE_NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "/",
+      {
+        query: {
+          userID: get().authUser?._id,
+        },
+      }
+    );
 
     socket.connect();
     set({ socket: socket });

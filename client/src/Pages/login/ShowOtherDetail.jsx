@@ -1,19 +1,20 @@
 import React from "react";
+import { Link } from "react-router";
 
 export function ShowOtherDetail() {
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <p className="text-center text-sm ">
         By using ChatApp, you agree to our
-        <a href="#" className="font-medium ">
+        <Link to={"/terms-of-service"} className="font-medium ">
           {" "}
           Terms of Service
-        </a>{" "}
+        </Link>{" "}
         and
-        <a href="#" className="font-medium ">
+        <Link to={"/privacy-policy"} className="font-medium ">
           {" "}
           Privacy Policy
-        </a>
+        </Link>
         .
       </p>
     </div>
