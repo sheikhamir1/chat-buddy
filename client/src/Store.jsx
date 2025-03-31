@@ -7,8 +7,6 @@ const baseUrl =
     ? `http://localhost:3000/api/v1/`
     : "/api/v1/";
 
-// console.log("baseUrl:", baseUrl);
-
 export const useStore = create((set, get) => ({
   // auth
   authUser: null,

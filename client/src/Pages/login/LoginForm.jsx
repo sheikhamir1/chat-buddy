@@ -66,7 +66,7 @@ export function LoginForm({ formHandler, register, errors }) {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t "></div>
             </div>
-            <div className="relative flex justify-center text-sm">
+            <div className="relative top-3 flex justify-center text-sm">
               <span className="px-2 ">Or continue with</span>
             </div>
           </div>

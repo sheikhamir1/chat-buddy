@@ -38,15 +38,10 @@ const App = () => {
         />
 
         {/* public routes */}
-        <Route
-          index
-          element={
-            isUserLogin === true ? <Navigate to="/home" /> : <CompleteAuth />
-          }
-        />
+        <Route path="/auth" element={<CompleteAuth />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/land" element={<LandingPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </>

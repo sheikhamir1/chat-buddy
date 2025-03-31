@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 export const LandingPage = () => {
   return (
@@ -18,12 +19,12 @@ export const LandingPage = () => {
 
         {/* Call-to-Action Button */}
         <div className="animate__animated animate__fadeIn animate__delay-3s">
-          <a
-            href="#get-started"
+          <Link
+            to="/auth"
             className="btn btn-primary text-lg px-8 py-3 rounded-lg"
           >
             Get Started
-          </a>
+          </Link>
         </div>
 
         {/* Animated Chat Bubbles */}

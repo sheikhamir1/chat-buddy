@@ -11,7 +11,7 @@ export const PrivacyPolicy = () => {
         performance and testing purposes.
       </p>
 
-      <div className="space-y-4">
+      <div className="space-y-2">
         <h2 className="text-2xl font-semibold">1. Information Collected</h2>
         <p>We collect usage data to monitor the app's performance.</p>
 
