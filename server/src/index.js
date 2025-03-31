@@ -15,11 +15,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { logger } from "node-super-logger";
 
-const __dirname__ = path.resolve();
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const publicPath = path.join(__dirname, "../client/dist");
+
+const publicPath = path.join(__dirname, "../../client/dist");
 console.log(publicPath);
 
 // middleware
