@@ -19,7 +19,8 @@ const __dirname__ = path.resolve();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const publicPath = path.join(__dirname, "../public/dist");
+const publicPath = path.join(__dirname, "../client/dist");
+console.log(publicPath);
 
 // middleware
 app.use(express.static(publicPath));
