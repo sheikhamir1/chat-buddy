@@ -33,7 +33,7 @@ export const useStore = create((set, get) => ({
 
       if (!res.ok) {
         toast(data.message, { type: "error" });
-        // throw new Error(data.message);
+        throw new Error(data.message);
       }
       if (res.ok) {
         set({ isUserLogin: true });
