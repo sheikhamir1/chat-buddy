@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "rimraf ../server/public/dist && vite build && mv dist ../server/public",
+    "build": "rimraf ../server/public/dist && vite build && cp -r dist/* ../server/public",
     "lint": "eslint .",
     "preview": "vite preview"
   },
