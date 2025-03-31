@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useStore } from "../../Store";
-import { FormatMessageTime } from "../../utils/formatMessageTime";
+import { FormatMessageTime } from "../../utils/FormatMessageTime";
 
 export function ChatMessages() {
   const {
