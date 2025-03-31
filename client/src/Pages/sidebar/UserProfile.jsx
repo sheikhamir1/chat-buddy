@@ -4,11 +4,15 @@ import { CameraSvg } from "../../Svg/CameraSvg";
 import { InputUtil } from "../../Components/InputUtil";
 import { useForm } from "react-hook-form";
 import { useStore } from "../../Store";
-import { myurl } from "../../utils/FetchUtil";
 import { toast } from "react-toastify";
 import { Spinner } from "../../utils/Spinner.Util";
 import { ButtonUtil } from "../../Components/ButtonUtil";
 import { BackArrowSvg } from "../../Svg/BackArrowSvg";
+
+const baseUrl =
+  process.env.VITE_NODE_ENV === "development"
+    ? `http://localhost:3000/api/v1/`
+    : "/api/v1/";
 
 export function UserProfile() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -63,7 +67,7 @@ export function UserProfile() {
       formData.append("profilePic", selectedImage);
 
       // Make the request to the backend
-      const data = await fetch(myurl.localUrl + "auth/update", {
+      const data = await fetch(baseUrl + "auth/update", {
         method: "POST",
         credentials: "include", // If you're using cookies
         body: formData, // The body should contain the FormData (no need to set Content-Type)

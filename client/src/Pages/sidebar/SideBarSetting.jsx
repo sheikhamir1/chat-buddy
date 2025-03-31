@@ -2,11 +2,15 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { SettingSvg } from "../../Svg/SettingSvg";
 import { LogoutSvg } from "../../Svg/LogoutSvg";
-import { myurl } from "../../utils/FetchUtil";
 import { useStore } from "../../Store";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../../utils/Spinner.Util";
+
+const baseUrl =
+  process.env.VITE_NODE_ENV === "development"
+    ? `http://localhost:3000/api/v1/`
+    : "/api/v1/";
 
 export function SideBarSetting() {
   // use store
@@ -14,7 +18,7 @@ export function SideBarSetting() {
 
   const logoutUser = async () => {
     try {
-      const response = await fetch(`${myurl.localUrl}auth/logout`, {
+      const response = await fetch(`${baseUrl}auth/logout`, {
         method: "POST",
         credentials: "include",
         headers: {
