@@ -10,7 +10,7 @@ import { Spinner } from "../../utils/Spinner.Util";
 const baseUrl =
   process.env.VITE_NODE_ENV === "development"
     ? `http://localhost:3000/api/v1/`
-    : "/api/v1/";
+    : "https://chat-buddy-bsto.onrender.com//api/v1/";
 
 export function SideBarSetting() {
   // use store
