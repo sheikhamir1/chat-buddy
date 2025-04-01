@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router";
+import { useStore } from "../../Store";
+import { AllThemes } from "../../Components/ThemeSwitcher";
 
 export const LandingPage = () => {
+  const { isUserLogin } = useStore((state) => state);
+
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center text-center text-base-content">
       {/* Hero Section Content */}
@@ -19,12 +23,21 @@ export const LandingPage = () => {
 
         {/* Call-to-Action Button */}
         <div className="animate__animated animate__fadeIn animate__delay-3s">
-          <Link
-            to="/auth"
-            className="btn btn-primary text-lg px-8 py-3 rounded-lg"
-          >
-            Get Started
-          </Link>
+          {isUserLogin ? (
+            <Link
+              to="/home"
+              className="btn btn-primary text-lg px-8 py-3 rounded-lg"
+            >
+              Continue Chatting
+            </Link>
+          ) : (
+            <Link
+              to="/auth"
+              className="btn btn-primary text-lg px-8 py-3 rounded-lg"
+            >
+              Get Started
+            </Link>
+          )}
         </div>
 
         {/* Animated Chat Bubbles */}
@@ -44,6 +57,26 @@ export const LandingPage = () => {
             />
           </svg>
         </div>
+
+        {/* You can open the modal using document.getElementById('ID').showModal() method */}
+        <button
+          className="btn"
+          onClick={() => document.getElementById("my_modal_3").showModal()}
+        >
+          try Our Themes
+        </button>
+        <dialog id="my_modal_3" className="modal">
+          <div className="modal-box min-w-[70%]">
+            <form method="dialog">
+              <h3 className="font-bold text-lg">All exclusive themes!</h3>
+              <AllThemes />
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            {/* <p className="py-4">Press ESC key or click on ✕ button to close</p> */}
+          </div>
+        </dialog>
       </div>
 
       {/* Feature Section */}

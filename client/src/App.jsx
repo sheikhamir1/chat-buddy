@@ -11,6 +11,7 @@ import { TermsOfService } from "./Pages/otherPages/TermsOfService.jsx";
 import { PrivacyPolicy } from "./Pages/otherPages/PrivacyPolicy.jsx";
 import { NotFoundPage } from "./Pages/otherPages/NotFoundPage.jsx";
 import { LandingPage } from "./Pages/otherPages/LandingPage.jsx";
+import { ProtectedRoutes } from "./Components/ProtectedRoutes.jsx";
 
 const App = () => {
   const { isUserLogin, onRefresh } = useStore((state) => state);
@@ -26,20 +27,39 @@ const App = () => {
 
         <Route
           path="/home"
-          element={isUserLogin === true ? <HomePage /> : <Navigate to="/" />}
+          element={
+            <ProtectedRoutes isAuthenticated={isUserLogin}>
+              <HomePage />
+            </ProtectedRoutes>
+          }
         />
         <Route
           path="/profile"
-          element={isUserLogin === true ? <UserProfile /> : <Navigate to="/" />}
+          element={
+            <ProtectedRoutes isAuthenticated={isUserLogin}>
+              <UserProfile />
+            </ProtectedRoutes>
+          }
         />
         <Route
           path="/setting"
-          element={isUserLogin === true ? <Settings /> : <Navigate to="/" />}
+          element={
+            <ProtectedRoutes isAuthenticated={isUserLogin}>
+              <Settings />
+            </ProtectedRoutes>
+          }
+        />
+
+        <Route
+          path="/auth"
+          element={
+            isUserLogin === true ? <Navigate to="/home" /> : <CompleteAuth />
+          }
         />
 
         {/* public routes */}
-        <Route path="/auth" element={<CompleteAuth />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/auth" element={<CompleteAuth />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/*" element={<NotFoundPage />} />

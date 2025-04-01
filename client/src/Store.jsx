@@ -7,6 +7,8 @@ const baseUrl =
     ? `http://localhost:3000/api/v1/`
     : "/api/v1/";
 
+console.log("baseUrl is store:", baseUrl);
+
 export const useStore = create((set, get) => ({
   // auth
   authUser: null,
@@ -29,7 +31,7 @@ export const useStore = create((set, get) => ({
       });
       const data = await res.json();
       const user = data.findUser;
-      console.log("user:", user);
+      // console.log("user:", user);
 
       if (!res.ok) {
         toast(data.message, { type: "error" });
