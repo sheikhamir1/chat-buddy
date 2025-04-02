@@ -8,6 +8,7 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router";
 import { useStore } from "../../Store";
 
+// always change .env before production
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === "development"
     ? `http://localhost:3000/api/v1/`
