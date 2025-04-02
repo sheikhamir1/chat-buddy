@@ -23,7 +23,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        {/* protected routes */}
+        {/* this is protected routes */}
 
         <Route
           path="/home"
