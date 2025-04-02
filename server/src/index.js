@@ -24,6 +24,7 @@ const publicPath = path.join(__dirname, "../../client/dist");
 // middleware
 app.use(express.static(publicPath));
 app.use(express.json());
+// cors is not used
 app.use(
   cors({
     // origin:
