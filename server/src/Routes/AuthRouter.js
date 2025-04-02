@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 
 // import middlewares
 import { bodyLogger, paramLogger, headersLogger } from "node-super-logger";
@@ -10,6 +10,7 @@ import {
   loginUser,
   logoutUser,
   updateProfile,
+  GoogleLogin,
 } from "../Controllers/AuthUsersControllers.js";
 import { isUserLogin } from "../Middlewares/isUserLogin.js";
 import { upload } from "../Middlewares/Multer.js";
@@ -29,5 +30,6 @@ authRouter.post(
   paramLogger,
   updateProfile
 );
+authRouter.post("/google", GoogleLogin);
 
 export { authRouter };

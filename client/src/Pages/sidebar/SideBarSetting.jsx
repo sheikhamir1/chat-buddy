@@ -6,9 +6,10 @@ import { useStore } from "../../Store";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../../utils/Spinner.Util";
+import { googleLogout } from "@react-oauth/google";
 
 const baseUrl =
-  process.env.VITE_NODE_ENV === "development"
+  import.meta.env.VITE_NODE_ENV === "development"
     ? `http://localhost:3000/api/v1/`
     : "https://chat-buddy-bsto.onrender.com/api/v1/";
 
@@ -55,6 +56,7 @@ export function SideBarSetting() {
 
   const HandleLogout = () => {
     mutate();
+    googleLogout();
   };
 
   useEffect(() => {

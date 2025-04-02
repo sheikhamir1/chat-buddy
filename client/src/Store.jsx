@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { io } from "socket.io-client";
 
 const baseUrl =
-  process.env.VITE_NODE_ENV === "development"
+  import.meta.env.VITE_NODE_ENV === "development"
     ? `http://localhost:3000/api/v1/`
     : "https://chat-buddy-bsto.onrender.com/api/v1/";
 
@@ -39,7 +39,7 @@ export const useStore = create((set, get) => ({
       }
       if (res.ok) {
         set({ isUserLogin: true });
-        console.log("data:", user);
+        // console.log("data:", user);
         set({ authUser: user });
 
         get().connectSocket();

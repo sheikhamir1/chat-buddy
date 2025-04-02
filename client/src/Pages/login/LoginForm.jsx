@@ -4,8 +4,50 @@ import { GoogleSvg } from "../../Svg/GoogleSvg";
 import { FacebookSvg } from "../../Svg/FacebookSvg";
 import { InstagramSvg } from "../../Svg/InstagramSvg";
 import { ButtonUtil } from "../../Components/ButtonUtil";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router";
+import { useStore } from "../../Store";
+
+const baseUrl =
+  import.meta.env.VITE_NODE_ENV === "development"
+    ? `http://localhost:3000/api/v1/`
+    : "https://chat-buddy-bsto.onrender.com/api/v1/";
 
 export function LoginForm({ formHandler, register, errors }) {
+  const { setIsUserLogin } = useStore((state) => state);
+  const navigate = useNavigate();
+  // Google login
+  const handleSuccess = async (credentialResponse) => {
+    try {
+      const token = credentialResponse.credential; // The Google ID token
+
+      // Send the token to your backend for verification
+      const res = await fetch(`${baseUrl}auth/google`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }), // Send the Google token in the body
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setIsUserLogin(true);
+        console.log("User authenticated via Google:", data.message);
+        navigate("/home");
+      } else {
+        console.error("Authentication failed:", data.message);
+      }
+    } catch (error) {
+      console.error("Error during Google login:", error);
+    }
+  };
+
+  const handleError = (error) => {
+    console.log("Login Failed", error);
+  };
+
   return (
     <>
       <div className="loginUtil">
@@ -71,27 +113,29 @@ export function LoginForm({ formHandler, register, errors }) {
             </div>
           </div>
 
-          <div className="mt-6 grid grid-cols-3 gap-3">
-            <div>
-              <ButtonUtil
-                buttonName={<GoogleSvg />}
-                style={"w-full inline-flex justify-center py-2 px-4 "}
-              />
+          {/* <div className="mt-6 grid grid-cols-3 gap-3 "> */}
+          <div className="mt-6 flex justify-center">
+            <div className="">
+              <GoogleOAuthProvider
+                clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+              >
+                <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+              </GoogleOAuthProvider>
             </div>
 
-            <div>
+            {/* <div>
               <ButtonUtil
                 buttonName={<FacebookSvg />}
                 style={"w-full inline-flex justify-center py-2 px-4 "}
               />
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <ButtonUtil
                 buttonName={<InstagramSvg />}
                 style={"w-full inline-flex justify-center py-2 px-4 "}
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

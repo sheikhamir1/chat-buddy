@@ -3,6 +3,9 @@ import { signToken } from "../Middlewares/SignToken.js";
 import { User } from "../Models/userModel.js";
 import { cloudinary } from "../Utils/CloudinaryConfig.js";
 import { upload } from "../Middlewares/Multer.js";
+import { OAuth2Client } from "google-auth-library";
+
+const Client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const userDetails = async (req, res) => {
   const id = req.currentUserID;
@@ -151,4 +154,51 @@ const updateProfile = async (req, res) => {
     console.log(error);
   }
 };
-export { userDetails, signupUser, loginUser, logoutUser, updateProfile };
+
+const GoogleLogin = async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    // Verify the Google token
+    const ticket = await Client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID, // Specify your client ID here
+    });
+
+    // Get the user info from the Google token payload
+    const payload = ticket.getPayload();
+    const googleUserId = payload.sub; // Google user ID
+
+    // Check if the user already exists in your DB
+    let user = await User.findOne({ googleId: googleUserId });
+
+    if (!user) {
+      // If the user does not exist, create a new user
+      user = new User({
+        googleId: googleUserId,
+        email: payload.email,
+        fullName: payload.name,
+        profilePic: payload.picture,
+      });
+      await user.save();
+    }
+
+    // Generate a JWT token for the authenticated user
+    signToken(user._id, res);
+
+    // Send a response back to the frontend
+    res.status(200).json({ message: "User authenticated via Google!", user });
+  } catch (error) {
+    console.error("Google authentication error:", error);
+    res.status(500).json({ message: "Failed to authenticate with Google" });
+  }
+};
+
+export {
+  userDetails,
+  signupUser,
+  loginUser,
+  logoutUser,
+  updateProfile,
+  GoogleLogin,
+};

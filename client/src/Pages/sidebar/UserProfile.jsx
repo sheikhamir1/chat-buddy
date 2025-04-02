@@ -11,7 +11,7 @@ import { BackArrowSvg } from "../../Svg/BackArrowSvg";
 import { ShowOtherDetail } from "../login/ShowOtherDetail";
 
 const baseUrl =
-  process.env.VITE_NODE_ENV === "development"
+  import.meta.env.VITE_NODE_ENV === "development"
     ? `http://localhost:3000/api/v1/`
     : "https://chat-buddy-bsto.onrender.com/api/v1/";
 
