@@ -20,7 +20,7 @@ export function LoginForm({ formHandler, register, errors }) {
   // Google login
   const handleSuccess = async (credentialResponse) => {
     try {
-      const token = credentialResponse.credential; // The Google ID token
+      const token = credentialResponse.credential;
 
       // Send the token to your backend for verification
       const res = await fetch(`${baseUrl}auth/google`, {
@@ -35,7 +35,7 @@ export function LoginForm({ formHandler, register, errors }) {
 
       if (res.ok) {
         setIsUserLogin(true);
-        console.log("User authenticated via Google:", data.message);
+        console.log("User authenticated via GoogleAuth:", data.message);
         navigate("/home");
       } else {
         console.error("Authentication failed:", data.message);
