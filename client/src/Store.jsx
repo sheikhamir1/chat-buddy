@@ -67,6 +67,9 @@ export const useStore = create((set, get) => ({
     const socket = get().socket;
 
     socket.on("message", (data) => {
+      // console.log("data in store:", data);
+      // console.log("chatMessage in store:", get().chatMessage);
+
       set({ chatMessage: [...get().chatMessage, data] });
     });
   },
@@ -114,9 +117,9 @@ export const useStore = create((set, get) => ({
 
   connectSocket: () => {
     const socket = io(
-      process.env.VITE_NODE_ENV === "development"
-        ? "http://localhost:3000"
-        : "/",
+      import.meta.env.VITE_NODE_ENV === "development"
+        ? `http://localhost:3000/`
+        : "https://chat-buddy-bsto.onrender.com/",
       {
         query: {
           userID: get().authUser?._id,

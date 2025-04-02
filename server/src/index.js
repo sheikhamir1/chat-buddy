@@ -27,10 +27,10 @@ app.use(express.json());
 // cors is not used
 app.use(
   cors({
-    // origin:
-    // process.env.NODE_ENV === "development"
-    //   ? "http://localhost:5173"
-    //   : "https://chat-buddy-bsto.onrender.com/",
+    origin:
+      process.env.VITE_NODE_ENV === "development"
+        ? "http://localhost:5173"
+        : "https://chat-buddy-bsto.onrender.com/",
     credentials: true,
   })
 );

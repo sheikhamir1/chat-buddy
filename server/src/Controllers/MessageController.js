@@ -74,10 +74,21 @@ const sendMessages = async (req, res) => {
     });
     await newMessage.save();
 
-    const receiverSocketId = getReceiverSocketID(receiverId);
+    // const receiverSocketId = getReceiverSocketID(receiverId);
 
+    // if (receiverSocketId) {
+    //   io.to(receiverSocketId).emit("message", newMessage);
+    // }
+
+    const receiverSocketId = getReceiverSocketID(receiverId);
     if (receiverSocketId) {
-      io.to(receiverSocketId).emit("message", newMessage);
+      io.to(receiverSocketId).emit("message", newMessage); // Emit to receiver
+    }
+
+    // Get the sender's socket ID and emit the message to the sender as well
+    const senderSocketId = getReceiverSocketID(currentuserID);
+    if (senderSocketId) {
+      io.to(senderSocketId).emit("message", newMessage); // Emit to sender
     }
 
     res.status(201).json({ newMessage });

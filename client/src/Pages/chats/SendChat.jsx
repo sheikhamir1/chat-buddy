@@ -23,7 +23,10 @@ export function SendChat() {
 
   // preView selected Image
   const handleChange = (e) => {
+    e.preventDefault();
     const file = e.target.files[0];
+
+    console.log(file);
 
     if (!file) {
       console.log("no file selected");
@@ -45,6 +48,9 @@ export function SendChat() {
       formData.append("image", selectedImage);
       formData.append("message", message);
 
+      // console.log("selectedImage:", selectedImage);
+      // console.log("message:", message);
+
       const data = await fetch(`${baseUrl}message/send/${selectedUser._id}`, {
         method: "POST",
         credentials: "include",
@@ -57,7 +63,7 @@ export function SendChat() {
       }
 
       const response1 = await data.json();
-      // console.log("response :", response1);
+      // console.log("response :", response1)
 
       setMessage("");
       setIsLoading(false);
@@ -115,7 +121,7 @@ export function SendChat() {
           </>
         )}
         <form className="flex items-center" onSubmit={handleSendMessage}>
-          <button className="p-2 rounded-full  mr-2">
+          <button className="p-2 rounded-full  mr-2" type="button">
             <label htmlFor="image" className="cursor-pointer">
               <AddFileSvg />
               <input
