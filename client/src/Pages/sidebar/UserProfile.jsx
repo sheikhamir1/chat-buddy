@@ -168,7 +168,7 @@ export function UserProfile() {
                 <div className="relative">
                   <img
                     src={
-                      authUser.profilePic ||
+                      authUser?.profilePic ||
                       "https://avatar.iran.liara.run/public/boy?username=john"
                     }
                     alt="John Doe profile"
@@ -211,8 +211,8 @@ export function UserProfile() {
 
             {/* <!-- Profile Details --> */}
             <div className="pt-16 pb-8 px-8">
-              <h2 className="text-xl font-semibold ">{authUser.fullName}</h2>
-              <p className="text-sm ">{authUser.email}</p>
+              <h2 className="text-xl font-semibold ">{authUser?.fullName}</h2>
+              <p className="text-sm ">{authUser?.email}</p>
               {/* <div className="flex items-center mt-2  text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

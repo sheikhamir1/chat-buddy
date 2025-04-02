@@ -63,7 +63,7 @@ export function SideBar() {
 
   return (
     <div className="flex-1 h-[390px] overflow-y-auto">
-      {data.map((user) => {
+      {data?.map((user) => {
         return (
           <div
             key={user._id}
@@ -78,10 +78,10 @@ export function SideBar() {
             >
               <img
                 src={`${
-                  user.profilePic ||
+                  user?.profilePic ||
                   "https://avatar.iran.liara.run/public/boy?username=alex"
                 } `}
-                alt={user.fullName}
+                alt={user?.fullName}
                 className={`w-12 h-12 rounded-full object-cover ${
                   selectedUser?._id === user?._id ? "border-2 " : ""
                 } `}
@@ -90,10 +90,10 @@ export function SideBar() {
               />
               <div className="ml-3 flex-1">
                 <div className="flex justify-between items-center">
-                  <p className="text-sm font-medium ">{user.fullName}</p>
+                  <p className="text-sm font-medium ">{user?.fullName}</p>
                   <p className="text-xs ">12:30 PM</p>
                 </div>
-                {onlineUsers.includes(user._id) && (
+                {onlineUsers?.includes(user._id) && (
                   <div>
                     <span className="absolute top-5 left-11 w-3 h-3 bg-green-300 rounded-full" />
                     <p className="text-xs  truncate">online</p>
