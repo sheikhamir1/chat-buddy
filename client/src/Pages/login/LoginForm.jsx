@@ -14,6 +14,9 @@ const baseUrl =
     ? `http://localhost:3000/api/v1/`
     : "https://chat-buddy-bsto.onrender.com/api/v1/";
 
+const googleClientId =
+  "41984529252-e5l4ks2fa6tburu1onhn6eegpna4ev45.apps.googleusercontent.com";
+
 export function LoginForm({ formHandler, register, errors }) {
   const { setIsUserLogin } = useStore((state) => state);
   const navigate = useNavigate();
@@ -117,9 +120,7 @@ export function LoginForm({ formHandler, register, errors }) {
           {/* <div className="mt-6 grid grid-cols-3 gap-3 "> */}
           <div className="mt-6 flex justify-center">
             <div className="">
-              <GoogleOAuthProvider
-                clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
-              >
+              <GoogleOAuthProvider clientId={googleClientId}>
                 <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
               </GoogleOAuthProvider>
             </div>
